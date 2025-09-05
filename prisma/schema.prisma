@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String   @unique
+  image     String
+  xp        Int      @default(0)
+  level     Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sectionCompletions   SectionCompletion[]
+  challengeCompletions ChallengeCompletion[]
+  quizCompletions      QuizCompletion[]
+}
+
+model StudyPlan {
+  id         String      @id @default(cuid())
+  language   String
+  sections   Section[]
+  challenges Challenge[]
+  quiz       Quiz?
+
+  sectionCompletions   SectionCompletion[]
+  challengeCompletions ChallengeCompletion[]
+  quizCompletions      QuizCompletion[]
+}
+
+model Section {
+  id          String              @id @default(cuid())
+  title       String
+  explanation String
+  order       Int
+  studyPlanId String
+  studyPlan   StudyPlan           @relation(fields: [studyPlanId], references: [id])
+  exercises   Exercise[]
+  completions SectionCompletion[]
+}
+
+model Challenge {
+  id          String                @id @default(cuid())
+  title       String
+  prompt      String
+  starterCode String?
+  solution    String
+  order       Int
+  studyPlanId String
+  studyPlan   StudyPlan             @relation(fields: [studyPlanId], references: [id])
+  completions ChallengeCompletion[]
+}
+
+model Quiz {
+  id          String           @id @default(cuid())
+  questions   QuizQuestion[]
+  studyPlanId String           @unique
+  studyPlan   StudyPlan        @relation(fields: [studyPlanId], references: [id])
+  completions QuizCompletion[]
+}
+
+model SectionCompletion {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  studyPlanId String
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  sectionId   String
+  section     Section   @relation(fields: [sectionId], references: [id])
+  completedAt DateTime? @default(now())
+
+  @@unique([userId, sectionId])
+}
+
+model ChallengeCompletion {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  studyPlanId String
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  challengeId String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  completedAt DateTime? @default(now())
+
+  @@unique([userId, challengeId])
+}
+
+model QuizCompletion {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  studyPlanId String
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  quizId      String
+  quiz        Quiz      @relation(fields: [quizId], references: [id])
+  completedAt DateTime? @default(now())
+
+  @@unique([userId, quizId])
+}
+
+model Exercise {
+  id        String       @id @default(cuid())
+  type      ExerciseType
+  question  String
+  options   Option[] // for MCQ, optional for others
+  answer    String // correct answer
+  sectionId String
+  section   Section      @relation(fields: [sectionId], references: [id])
+}
+
+model QuizQuestion {
+  id       String   @id @default(cuid())
+  question String
+  options  Option[] // MCQ options
+  answer   String
+  quizId   String
+  quiz     Quiz     @relation(fields: [quizId], references: [id])
+}
+
+enum ExerciseType {
+  TRUE_FALSE
+  MCQ
+  FILL_BLANK
+}
+
+model Option {
+  id             String        @id @default(cuid())
+  text           String
+  exerciseId     String?
+  exercise       Exercise?     @relation(fields: [exerciseId], references: [id])
+  quizQuestionId String?
+  quizQuestion   QuizQuestion? @relation(fields: [quizQuestionId], references: [id])
+}
