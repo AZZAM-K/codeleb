@@ -8,31 +8,29 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
-  name      String   @unique
-  image     String
-  xp        Int      @default(0)
-  level     Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  sectionCompletions   SectionCompletion[]
+  id                   String                @id @default(cuid())
+  email                String                @unique
+  level                Int                   @default(1)
+  xp                   Int                   @default(0)
+  createdAt            DateTime              @default(now())
+  image                String
+  name                 String                @unique
+  updatedAt            DateTime              @updatedAt
+  clerkId              String                @unique
   challengeCompletions ChallengeCompletion[]
   quizCompletions      QuizCompletion[]
+  sectionCompletions   SectionCompletion[]
 }
 
 model StudyPlan {
-  id         String      @id @default(cuid())
-  language   String
-  sections   Section[]
-  challenges Challenge[]
-  quiz       Quiz?
-
-  sectionCompletions   SectionCompletion[]
+  id                   String                @id @default(cuid())
+  language             String
+  challenges           Challenge[]
   challengeCompletions ChallengeCompletion[]
+  quiz                 Quiz?
   quizCompletions      QuizCompletion[]
+  sections             Section[]
+  sectionCompletions   SectionCompletion[]
 }
 
 model Section {
@@ -41,8 +39,8 @@ model Section {
   explanation String
   order       Int
   studyPlanId String
-  studyPlan   StudyPlan           @relation(fields: [studyPlanId], references: [id])
   exercises   Exercise[]
+  studyPlan   StudyPlan           @relation(fields: [studyPlanId], references: [id])
   completions SectionCompletion[]
 }
 
@@ -60,21 +58,21 @@ model Challenge {
 
 model Quiz {
   id          String           @id @default(cuid())
-  questions   QuizQuestion[]
   studyPlanId String           @unique
   studyPlan   StudyPlan        @relation(fields: [studyPlanId], references: [id])
   completions QuizCompletion[]
+  questions   QuizQuestion[]
 }
 
 model SectionCompletion {
   id          String    @id @default(cuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
   studyPlanId String
-  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
   sectionId   String
-  section     Section   @relation(fields: [sectionId], references: [id])
   completedAt DateTime? @default(now())
+  section     Section   @relation(fields: [sectionId], references: [id])
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 
   @@unique([userId, sectionId])
 }
@@ -82,12 +80,12 @@ model SectionCompletion {
 model ChallengeCompletion {
   id          String    @id @default(cuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
   studyPlanId String
-  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
   challengeId String
-  challenge   Challenge @relation(fields: [challengeId], references: [id])
   completedAt DateTime? @default(now())
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 
   @@unique([userId, challengeId])
 }
@@ -95,12 +93,12 @@ model ChallengeCompletion {
 model QuizCompletion {
   id          String    @id @default(cuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
   studyPlanId String
-  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
   quizId      String
-  quiz        Quiz      @relation(fields: [quizId], references: [id])
   completedAt DateTime? @default(now())
+  quiz        Quiz      @relation(fields: [quizId], references: [id])
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 
   @@unique([userId, quizId])
 }
@@ -109,32 +107,32 @@ model Exercise {
   id        String       @id @default(cuid())
   type      ExerciseType
   question  String
-  options   Option[] // for MCQ, optional for others
-  answer    String // correct answer
+  answer    String
   sectionId String
   section   Section      @relation(fields: [sectionId], references: [id])
+  options   Option[]
 }
 
 model QuizQuestion {
   id       String   @id @default(cuid())
   question String
-  options  Option[] // MCQ options
   answer   String
   quizId   String
+  options  Option[]
   quiz     Quiz     @relation(fields: [quizId], references: [id])
-}
-
-enum ExerciseType {
-  TRUE_FALSE
-  MCQ
-  FILL_BLANK
 }
 
 model Option {
   id             String        @id @default(cuid())
   text           String
   exerciseId     String?
-  exercise       Exercise?     @relation(fields: [exerciseId], references: [id])
   quizQuestionId String?
+  exercise       Exercise?     @relation(fields: [exerciseId], references: [id])
   quizQuestion   QuizQuestion? @relation(fields: [quizQuestionId], references: [id])
+}
+
+enum ExerciseType {
+  TRUE_FALSE
+  MCQ
+  FILL_BLANK
 }
