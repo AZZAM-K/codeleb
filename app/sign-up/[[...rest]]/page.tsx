@@ -1,23 +1,22 @@
-"use client"
-import { SignUp } from "@clerk/nextjs"
+'use client'
+import { SignUp } from '@clerk/nextjs'
 
 export default function SignUpPage() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className='flex justify-center items-center min-h-screen bg-gray-100'>
       <SignUp
         appearance={{
           variables: {
-            colorPrimary: "#16a34a",
-            colorBackground: "#ffffff",
-            colorText: "#111827",
-            borderRadius: "1rem",
+            colorPrimary: '#16a34a',
+            colorBackground: '#ffffff',
+            colorText: '#111827',
+            borderRadius: '1rem',
           },
           layout: {
-            socialButtonsVariant: "iconButton",
+            socialButtonsVariant: 'iconButton',
           },
         }}
-        afterSignUpUrl="/"
-        afterSignInUrl="/"
+        signInUrl='/login'
       />
     </div>
   )

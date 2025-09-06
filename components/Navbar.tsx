@@ -1,9 +1,9 @@
-"use client"
-import { useState, useEffect, useRef } from "react"
-import { useUser, SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs"
-import { createOrUpdateUser } from "@/lib/actions"
-import Link from "next/link"
-import Image from "next/image"
+'use client'
+import { useState, useEffect, useRef } from 'react'
+import { useUser, SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs'
+import { createOrUpdateUser } from '@/lib/actions'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navbar() {
   const { user, isSignedIn } = useUser()
@@ -16,9 +16,9 @@ export default function Navbar() {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
         name: user.fullName || user.username || `user-${user.id}`,
-        image: user.imageUrl || "",
+        image: user.imageUrl || '',
       })
-        .then(res => console.log("User saved:", res))
+        .then(res => console.log('User saved:', res))
         .catch(err => console.error(err))
     }
   }, [isSignedIn, user])
@@ -32,25 +32,25 @@ export default function Navbar() {
         setShowLogin(false)
       }
     }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   return (
     <nav className='bg-gray-900 text-white px-6 py-3 flex justify-between items-center shadow-lg'>
-      <div className='text-2xl font-extrabold tracking-tight'>MyApp</div>
+      <div className='text-2xl font-extrabold tracking-tight'>codeleb</div>
 
       <div className='flex gap-3 items-center relative'>
         <SignedIn>
-          <div className='flex items-center gap-2'>
+          <div className='flex items-center gap-3'>
             <Image
-              src={user?.imageUrl || "/default-avatar.png"}
+              src={user?.imageUrl || '/default-avatar.png'}
               alt='Profile'
-              className='w-9 h-9 rounded-full border-2 border-green-500'
+              width={35}
+              height={35}
+              className='rounded-full'
             />
-            <span className='font-semibold'>
-              {user?.fullName || user?.username || "User"}
-            </span>
+            <span className='font-semibold'>{user?.username}</span>
 
             <SignOutButton>
               <button className='px-3 py-1 border border-white rounded-lg hover:bg-white hover:text-gray-900 transition'>
@@ -62,14 +62,14 @@ export default function Navbar() {
 
         <SignedOut>
           <Link
-            href={"/login"}
+            href={'/login'}
             className='px-3 py-1 border border-white rounded-lg hover:bg-white hover:text-gray-900 transition'
           >
             Login
           </Link>
 
           <Link
-            href={"sign-up"}
+            href={'/sign-up'}
             className='px-3 py-1 bg-green-600 rounded-lg hover:bg-green-700 transition text-white'
           >
             Sign Up
