@@ -38,7 +38,10 @@ export default function Navbar() {
 
   return (
     <nav className='bg-gray-900 text-white px-6 py-3 flex justify-between items-center shadow-lg'>
-      <div className='text-2xl font-extrabold tracking-tight'>codeleb</div>
+      <div className='text-2xl font-extrabold tracking-tight'>
+        <span>code</span>
+        <span className='text-green-600'>leb</span>
+      </div>
 
       <div className='flex gap-3 items-center relative'>
         <SignedIn>
