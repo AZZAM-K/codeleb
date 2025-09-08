@@ -36,8 +36,8 @@ model StudyPlan {
 model Section {
   id          String              @id @default(cuid())
   title       String
-  explanation String
   order       Int
+  subsections SubSection[]
   studyPlanId String
   exercises   Exercise[]
   studyPlan   StudyPlan           @relation(fields: [studyPlanId], references: [id])
@@ -129,6 +129,15 @@ model Option {
   quizQuestionId String?
   exercise       Exercise?     @relation(fields: [exerciseId], references: [id])
   quizQuestion   QuizQuestion? @relation(fields: [quizQuestionId], references: [id])
+}
+
+model SubSection {
+  id        String  @id @default(cuid())
+  title     String
+  content   String
+  example   String
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
 }
 
 enum ExerciseType {
