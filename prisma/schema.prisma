@@ -18,7 +18,6 @@ model User {
   updatedAt            DateTime              @updatedAt
   clerkId              String                @unique
   challengeCompletions ChallengeCompletion[]
-  quizCompletions      QuizCompletion[]
   sectionCompletions   SectionCompletion[]
 }
 
@@ -29,8 +28,6 @@ model StudyPlan {
   img                  String
   challenges           Challenge[]
   challengeCompletions ChallengeCompletion[]
-  quiz                 Quiz?
-  quizCompletions      QuizCompletion[]
   sections             Section[]
   sectionCompletions   SectionCompletion[]
 }
@@ -67,14 +64,6 @@ model TestCase {
   challenge   Challenge @relation(fields: [challengeId], references: [id])
 }
 
-model Quiz {
-  id          String           @id @default(cuid())
-  studyPlanId String           @unique
-  studyPlan   StudyPlan        @relation(fields: [studyPlanId], references: [id])
-  completions QuizCompletion[]
-  questions   QuizQuestion[]
-}
-
 model SectionCompletion {
   id          String    @id @default(cuid())
   userId      String
@@ -101,19 +90,6 @@ model ChallengeCompletion {
   @@unique([userId, challengeId])
 }
 
-model QuizCompletion {
-  id          String    @id @default(cuid())
-  userId      String
-  studyPlanId String
-  quizId      String
-  completedAt DateTime? @default(now())
-  quiz        Quiz      @relation(fields: [quizId], references: [id])
-  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
-
-  @@unique([userId, quizId])
-}
-
 model Exercise {
   id        String       @id @default(cuid())
   type      ExerciseType
@@ -124,22 +100,12 @@ model Exercise {
   options   Option[]
 }
 
-model QuizQuestion {
-  id       String   @id @default(cuid())
-  question String
-  answer   String
-  quizId   String
-  options  Option[]
-  quiz     Quiz     @relation(fields: [quizId], references: [id])
-}
-
 model Option {
-  id             String        @id @default(cuid())
+  id             String    @id @default(cuid())
   text           String
   exerciseId     String?
   quizQuestionId String?
-  exercise       Exercise?     @relation(fields: [exerciseId], references: [id])
-  quizQuestion   QuizQuestion? @relation(fields: [quizQuestionId], references: [id])
+  exercise       Exercise? @relation(fields: [exerciseId], references: [id])
 }
 
 model SubSection {
