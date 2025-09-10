@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { useUser, SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs"
-import { createOrUpdateUser } from "@/lib/actions"
-import Link from "next/link"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
+import { useState, useEffect } from 'react'
+import { useUser, SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs'
+import { createOrUpdateUser } from '@/lib/actions'
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar() {
   const { user, isSignedIn } = useUser()
@@ -18,18 +18,18 @@ export default function Navbar() {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
         name: user.fullName || user.username || `user-${user.id}`,
-        image: user.imageUrl || "",
+        image: user.imageUrl || '',
       })
-        .then(res => console.log("User saved:", res))
+        .then(res => console.log('User saved:', res))
         .catch(err => console.error(err))
     }
   }, [isSignedIn, user])
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/courses", label: "Courses" },
-    { href: "/leaderboard", label: "Leaderboard" },
-    { href: "/about-us", label: "About Us" },
+    { href: '/', label: 'Home' },
+    { href: '/courses', label: 'Courses' },
+    { href: '/leaderboard', label: 'Leaderboard' },
+    { href: '/about-us', label: 'About Us' },
   ]
   const pathname = usePathname()
 
@@ -57,8 +57,8 @@ export default function Navbar() {
                 href={href}
                 className={`transition-colors ${
                   isActive
-                    ? "text-green-600 font-semibold border-b-2 border-green-600 pb-1"
-                    : "text-gray-600 hover:text-green-600"
+                    ? 'text-green-600 font-semibold border-b-2 border-green-600 pb-1'
+                    : 'text-gray-600 hover:text-green-600'
                 }`}
               >
                 {label}
@@ -71,13 +71,12 @@ export default function Navbar() {
           <SignedIn>
             <div className='flex items-center gap-3'>
               <Image
-                src={user?.imageUrl || "/default-avatar.png"}
+                src={user?.imageUrl || '/default-avatar.png'}
                 alt='Profile'
                 width={35}
                 height={35}
                 className='rounded-full'
               />
-              <span className='font-semibold'>{user?.username}</span>
               <SignOutButton>
                 <button className='px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100 transition'>
                   Sign Out
@@ -97,10 +96,7 @@ export default function Navbar() {
 
               <span className='text-gray-400 font-semibold'>/</span>
 
-              <Link
-                href='/sign-up'
-                className='font-medium transition'
-              >
+              <Link href='/sign-up' className='font-medium transition'>
                 Sign Up
               </Link>
             </div>
@@ -157,8 +153,8 @@ export default function Navbar() {
                 href={href}
                 className={`block py-2 text-sm rounded transition ${
                   isActive
-                    ? "text-green-600 font-semibold  pb-1"
-                    : "text-gray-600 hover:text-green-600"
+                    ? 'text-green-600 font-semibold  pb-1'
+                    : 'text-gray-600 hover:text-green-600'
                 }`}
               >
                 {label}
@@ -170,7 +166,7 @@ export default function Navbar() {
             <SignedIn>
               <div className='flex items-center gap-3'>
                 <Image
-                  src={user?.imageUrl || "/default-avatar.png"}
+                  src={user?.imageUrl || '/default-avatar.png'}
                   alt='Profile'
                   width={35}
                   height={35}

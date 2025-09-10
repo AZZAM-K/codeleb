@@ -1,5 +1,47 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
+import { teamMembers } from '@/constants'
+import TeamMemberCard from '@/components/TeamMemberCard'
+import FeatureCard from '@/components/FeatureCard'
+
+const features = [
+  {
+    title: 'Learn Programming Languages',
+    desc: 'Start learning the most important programming languages step by step with clear explanations and practical examples.',
+    icon: (
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='M16.88 3.549L7.12 20.451M4 8h16M4 16h16'
+      />
+    ),
+  },
+  {
+    title: 'Build Real Projects',
+    desc: 'Not just theory — apply what you learn by building real-world projects to become job-ready.',
+    icon: (
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='M3 7h18M3 12h18M3 17h18'
+      />
+    ),
+  },
+  {
+    title: 'Become a Strong Programmer',
+    desc: 'Through practice and support, you’ll reach a professional level and unlock real career opportunities.',
+    icon: (
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='M12 4.354l2.121 4.243 4.678.68-3.399 3.31.802 4.661L12 15.347l-4.202 2.201.802-4.661-3.399-3.31 4.678-.68L12 4.354z'
+      />
+    ),
+  },
+]
 
 export default function AboutPage() {
   return (
@@ -8,13 +50,13 @@ export default function AboutPage() {
         <div className='container mx-auto px-6 py-20 md:py-28 flex flex-col-reverse md:flex-row items-center md:items-start gap-10'>
           <div className='md:w-2/3 max-w-3xl text-center md:text-left'>
             <h1 className='text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight'>
-              We're on a mission to make coding accessible to everyone.
+              We&apos;re on a mission to make coding accessible to everyone.
             </h1>
             <p className='mt-6 text-lg text-gray-700 leading-relaxed'>
               CodeLeb was founded on a simple principle: anyone with curiosity
-              and dedication can learn to code. We're passionate about breaking
-              down barriers and empowering the next generation of builders,
-              innovators, and problem-solvers.
+              and dedication can learn to code. We&apos;re passionate about
+              breaking down barriers and empowering the next generation of
+              builders, innovators, and problem-solvers.
             </p>
           </div>
 
@@ -41,67 +83,13 @@ export default function AboutPage() {
               Why CodeLeb?
             </h2>
             <p className='mt-4 text-lg text-gray-600 max-w-2xl mx-auto'>
-              We've built a learning experience designed for your success.
+              We&apos;ve built a learning experience designed for your success.
             </p>
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-3 gap-10'>
-            {[
-              {
-                title: "Learn Programming Languages",
-                desc: "Start learning the most important programming languages step by step with clear explanations and practical examples.",
-                icon: (
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M16.88 3.549L7.12 20.451M4 8h16M4 16h16'
-                  />
-                ),
-              },
-              {
-                title: "Build Real Projects",
-                desc: "Not just theory — apply what you learn by building real-world projects to become job-ready.",
-                icon: (
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M3 7h18M3 12h18M3 17h18'
-                  />
-                ),
-              },
-              {
-                title: "Become a Strong Programmer",
-                desc: "Through practice and support, you’ll reach a professional level and unlock real career opportunities.",
-                icon: (
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M12 4.354l2.121 4.243 4.678.68-3.399 3.31.802 4.661L12 15.347l-4.202 2.201.802-4.661-3.399-3.31 4.678-.68L12 4.354z'
-                  />
-                ),
-              },
-            ].map(({ title, desc, icon }, i) => (
-              <div
-                key={i}
-                className='bg-gray-50 p-10 rounded-2xl shadow-sm hover:shadow-lg transition duration-300 text-center'
-              >
-                <div className='bg-green-100 text-green-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-6'>
-                  <svg
-                    className='h-8 w-8'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    {icon}
-                  </svg>
-                </div>
-                <h3 className='text-xl font-semibold mb-3'>{title}</h3>
-                <p className='text-gray-600 leading-relaxed'>{desc}</p>
-              </div>
+            {features.map(({ title, desc, icon }, i) => (
+              <FeatureCard key={i} title={title} desc={desc} icon={icon} />
             ))}
           </div>
         </div>
@@ -114,45 +102,18 @@ export default function AboutPage() {
               Meet the Team
             </h2>
             <p className='mt-4 text-lg text-gray-600 max-w-2xl mx-auto'>
-              We're a small, dedicated team that loves to code and teach.
+              We&apos;re a small, dedicated team that loves to code and teach.
             </p>
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12'>
-            {[
-              {
-                name: "Azzam Al-Kahil",
-                role: "Team Leader",
-                color: "a7f3d0/14532d",
-                short: "AK",
-              },
-              {
-                name: "Omar El-Ali",
-                role: "Developer",
-                color: "fef08a/713f12",
-                short: "OE",
-              },
-              {
-                name: "Salma Sweid",
-                role: "Developer",
-                color: "bae6fd/0c4a6e",
-                short: "SS",
-              },
-              {
-                name: "Moustafa Naji",
-                role: "Developer",
-                color: "e9d5ff/581c87",
-                short: "MN",
-              },
-            ].map(({ name, role, color, short }) => (
-              <div key={name} className='text-center'>
-                <img
-                  className='w-32 h-32 rounded-full mx-auto object-cover shadow-md'
-                  src={`https://placehold.co/200x200/${color}?text=${short}`}
-                  alt={name}
-                />
-                <h4 className='mt-4 text-xl font-semibold'>{name}</h4>
-                <p className='text-gray-500'>{role}</p>
-              </div>
+            {teamMembers.map(member => (
+              <TeamMemberCard
+                key={member.name}
+                name={member.name}
+                role={member.role}
+                colorClasses={member.colorClasses}
+                short={member.short}
+              />
             ))}
           </div>
         </div>
@@ -170,7 +131,7 @@ export default function AboutPage() {
         </div>
         <div className='text-center pb-10'>
           <Link
-            href={"/courses"}
+            href={'/courses'}
             className=' bg-white text-center text-green-700 font-bold py-4 px-10 rounded-lg text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105'
           >
             Browse Courses
