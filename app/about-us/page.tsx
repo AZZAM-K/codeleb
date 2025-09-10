@@ -65,7 +65,7 @@ export default function AboutPage() {
               <Image
                 width={2200}
                 height={2200}
-                src='/unnamed.png'
+                src='/future-cedar.png'
                 alt='CodeLeb Logo - Programming Languages Learning Platform'
                 className='object-contain'
                 priority
