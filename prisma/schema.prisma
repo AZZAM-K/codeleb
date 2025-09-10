@@ -97,15 +97,7 @@ model Exercise {
   answer    String
   sectionId String
   section   Section      @relation(fields: [sectionId], references: [id])
-  options   Option[]
-}
-
-model Option {
-  id             String    @id @default(cuid())
-  text           String
-  exerciseId     String?
-  quizQuestionId String?
-  exercise       Exercise? @relation(fields: [exerciseId], references: [id])
+  options   String[]
 }
 
 model SubSection {
