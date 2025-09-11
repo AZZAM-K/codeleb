@@ -3,43 +3,23 @@ import Link from 'next/link'
 import { teamMembers } from '@/constants'
 import TeamMemberCard from '@/components/TeamMemberCard'
 import FeatureCard from '@/components/FeatureCard'
+import { Star, Menu, EqualNot } from 'lucide-react'
 
 const features = [
   {
     title: 'Learn Programming Languages',
     desc: 'Start learning the most important programming languages step by step with clear explanations and practical examples.',
-    icon: (
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-        d='M16.88 3.549L7.12 20.451M4 8h16M4 16h16'
-      />
-    ),
+    icon: <EqualNot size={30} />,
   },
   {
     title: 'Build Real Projects',
     desc: 'Not just theory — apply what you learn by building real-world projects to become job-ready.',
-    icon: (
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-        d='M3 7h18M3 12h18M3 17h18'
-      />
-    ),
+    icon: <Menu size={30} />,
   },
   {
     title: 'Become a Strong Programmer',
     desc: 'Through practice and support, you’ll reach a professional level and unlock real career opportunities.',
-    icon: (
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-        d='M12 4.354l2.121 4.243 4.678.68-3.399 3.31.802 4.661L12 15.347l-4.202 2.201.802-4.661-3.399-3.31 4.678-.68L12 4.354z'
-      />
-    ),
+    icon: <Star size={30} />,
   },
 ]
 
