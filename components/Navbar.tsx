@@ -70,13 +70,15 @@ export default function Navbar() {
         <div className='hidden md:flex gap-3 items-center'>
           <SignedIn>
             <div className='flex items-center gap-3'>
-              <Image
-                src={user?.imageUrl || '/default-avatar.png'}
-                alt='Profile'
-                width={35}
-                height={35}
-                className='rounded-full'
-              />
+              <Link href='/profile'>
+                <Image
+                  src={user?.imageUrl || '/default-avatar.png'}
+                  alt='Profile'
+                  width={35}
+                  height={35}
+                  className='rounded-full'
+                />
+              </Link>
               <SignOutButton>
                 <button className='px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100 transition'>
                   Sign Out
