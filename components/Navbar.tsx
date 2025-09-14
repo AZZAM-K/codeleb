@@ -17,7 +17,7 @@ export default function Navbar() {
       createOrUpdateUser({
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
-        name: user.fullName || user.username || `user-${user.id}`,
+        name: user.username || `user-${user.id}`,
         image: user.imageUrl || '',
       })
         .then(res => console.log('User saved:', res))
