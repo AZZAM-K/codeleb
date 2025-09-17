@@ -41,7 +41,7 @@ const Courses = async ({ limit }: { limit?: number }) => {
                 {course.description}
               </p>
               <Link
-                href='#'
+                href={`/courses/${course.id}`}
                 className={`font-semibold ${
                   coursesColors[course.title as keyof typeof coursesColors]
                     .button
