@@ -19,13 +19,13 @@ const SectionPage = async ({
   if (!user) {
     redirect('/login')
   }
-
+  const cookie = await cookies()
   const { sectionId, id: courseId } = await params
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/sections/${sectionId}`,
     {
       headers: {
-        cookie: cookies().toString(),
+        cookie: cookie.toString(),
       },
     }
   )

@@ -1,12 +1,14 @@
-import React from "react"
-import { CheckCircle, Lock, BookOpen } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { CheckCircle, Lock, BookOpen } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { currentUser } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 
 interface Subsection {
   id: string
   title: string
-  type: "learn" | "practice"
+  type: 'learn' | 'practice'
   locked: boolean
 }
 
@@ -32,16 +34,21 @@ interface PageProps {
 
 const Page = async ({ params }: PageProps) => {
   const { id } = await params
+  const user = await currentUser()
 
+  if (!user) {
+    redirect('/login')
+  }
+  const cookie = await cookies()
   async function getCourse(courseId: string): Promise<Course> {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/courses/${courseId}`,
       {
-        cache: "no-store",
-        headers: { "user-id": "123" },
+        cache: 'no-store',
+        headers: { cookie: cookie.toString() },
       }
     )
-    if (!res.ok) throw new Error("Failed to fetch course")
+    if (!res.ok) throw new Error('Failed to fetch course')
     return res.json()
   }
 
@@ -64,7 +71,7 @@ const Page = async ({ params }: PageProps) => {
       <div className='flex md:flex-row flex-col gap-8'>
         <aside className='w-full md:w-1/3 p-6 bg-white rounded-xl shadow-lg flex flex-col items-center'>
           <div className='flex flex-col md:flex-row gap-4 items-center'>
-            <div className='md:w-1/3 h-20 md:h-32 rounded-full overflow-hidden border-2 border-green-500'>
+            <div className='md:w-1/3 h-20 md:h-32 rounded-full overflow-hidden'>
               <Image
                 src={course.img}
                 alt={course.title}
@@ -85,7 +92,7 @@ const Page = async ({ params }: PageProps) => {
             <h4 className='text-lg font-bold mb-1'>Course Progress</h4>
             <div className='relative h-2 mt-5 bg-gray-300 rounded-full'>
               <div
-                className='absolute inset-y-0 left-0 bg-purple-600 rounded-full'
+                className='absolute inset-y-0 left-0 bg-green-600 rounded-full'
                 style={{ width: `${courseProgress}%` }}
               />
               <span className='absolute right-0 top-1/2 -translate-y-1/2 text-sm font-semibold text-white bg-green-600 px-2 py-1 rounded-full'>
@@ -124,8 +131,8 @@ const Page = async ({ params }: PageProps) => {
                       href={`/courses/${id}/${section.id}`}
                       className={`flex justify-between items-center w-full rounded-lg py-3 px-4 transition-colors duration-300 ${
                         section.completed
-                          ? "bg-green-600 text-white hover:bg-green-700"
-                          : "bg-green-100 hover:bg-green-200"
+                          ? 'bg-green-400 text-white hover:bg-green-500'
+                          : 'bg-green-100 hover:bg-green-200'
                       }`}
                     >
                       <span className='text-sm font-semibold text-gray-900'>
