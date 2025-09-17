@@ -1,10 +1,10 @@
-import Courses from '@/components/Courses'
-import HowItWorksSection from '@/components/HowItWorksSection'
-import Loader from '@/components/Loader'
-import { testimonials } from '@/constants'
-import { ChevronsUp } from 'lucide-react'
-import Link from 'next/link'
-import { Suspense } from 'react'
+import Courses from "@/components/Courses"
+import HowItWorksSection from "@/components/HowItWorksSection"
+import Loader from "@/components/Loader"
+import { testimonials } from "@/constants"
+import { ChevronsUp } from "lucide-react"
+import Link from "next/link"
+import { Suspense } from "react"
 
 export default function Home() {
   return (
@@ -91,12 +91,12 @@ export default function Home() {
             Join a community of learners and take the first step towards your
             career in tech today.
           </p>
-          <a
+          <Link
             href='/courses'
             className='mt-8 inline-block bg-green-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-green-700 transition duration-300 transform hover:scale-105'
           >
             Browse Courses
-          </a>
+          </Link>
         </div>
       </section>
     </main>

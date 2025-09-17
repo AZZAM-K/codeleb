@@ -4,3 +4,4 @@ export type courseCard = {
   img: string
   title: string
 }
+

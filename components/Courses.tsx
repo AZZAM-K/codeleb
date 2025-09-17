@@ -1,12 +1,12 @@
-import { courseCard } from '@/types'
-import Image from 'next/image'
-import { coursesColors } from '@/constants'
-import Link from 'next/link'
+import { courseCard } from "@/types"
+import Image from "next/image"
+import { coursesColors } from "@/constants"
+import Link from "next/link"
 
 const Courses = async ({ limit }: { limit?: number }) => {
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/courses${
-      limit ? `?limit=${limit}` : ''
+      limit ? `?limit=${limit}` : ""
     }`
   )
   const courses = (await data.json()) as courseCard[]
@@ -41,7 +41,7 @@ const Courses = async ({ limit }: { limit?: number }) => {
                 {course.description}
               </p>
               <Link
-                href='#'
+                href={`/courses/${course.id}`}
                 className={`font-semibold ${
                   coursesColors[course.title as keyof typeof coursesColors]
                     .button
