@@ -1,11 +1,9 @@
 const TeamMemberCard = ({
   name,
-  role,
   colorClasses,
   short,
 }: {
   name: string
-  role: string
   colorClasses: string
   short: string
 }) => (
@@ -16,7 +14,6 @@ const TeamMemberCard = ({
       <span className='text-4xl font-bold'>{short}</span>
     </div>
     <h4 className='mt-4 text-xl font-semibold text-gray-900'>{name}</h4>
-    <p className='text-gray-500'>{role}</p>
   </div>
 )
 

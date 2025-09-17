@@ -29,3 +29,11 @@ export type SectionResponse = {
   }[]
   isCompleted: boolean
 }
+
+export type Exercise = {
+  id: string
+  type: 'MCQ' | 'TRUE_FALSE' | 'FILL_BLANK'
+  answer: string
+  question: string
+  options?: string[]
+}
