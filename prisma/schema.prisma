@@ -26,6 +26,20 @@ model User {
   rank Rank @default(BEGINNER)
 }
 
+  streak        Int       @default(0)
+  lastStudiedAt DateTime?
+
+  rank Rank @default(BEGINNER)
+}
+enum Rank {
+  BEGINNER
+  JUNIOR
+  MID
+  SENIOR
+  EXPERT
+  MASTER
+  LEGEND
+}
 model StudyPlan {
   id                   String                @id @default(cuid())
   title                String

@@ -1,10 +1,10 @@
-import { SectionResponse } from '@/types'
-import { currentUser } from '@clerk/nextjs/server'
-import { ArrowLeft, CheckCircle2, FileCode } from 'lucide-react'
-import { cookies } from 'next/headers'
-import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
-import Exercises from '@/components/Exercises'
+import { SectionResponse } from "@/types"
+import { currentUser } from "@clerk/nextjs/server"
+import { ArrowLeft, CheckCircle2, FileCode } from "lucide-react"
+import { cookies } from "next/headers"
+import Link from "next/link"
+import { notFound, redirect } from "next/navigation"
+import Exercises from "@/components/Exercises"
 
 const SectionPage = async ({
   params,
@@ -17,7 +17,7 @@ const SectionPage = async ({
   const user = await currentUser()
 
   if (!user) {
-    redirect('/login')
+    redirect("/login")
   }
   const cookie = await cookies()
   const { sectionId, id: courseId } = await params
