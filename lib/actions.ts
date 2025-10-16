@@ -1,4 +1,4 @@
-"use server"
+'use server'
 
 import { prisma } from '@/lib/prisma'
 import { currentUser } from '@clerk/nextjs/server'
@@ -25,7 +25,7 @@ export async function createOrUpdateUser(params: CreateUserParams) {
   }
 
   return prisma.user.create({
-    data: { clerkId, email, name, image: image ?? "" },
+    data: { clerkId, email, name, image: image ?? '' },
   })
 }
 
@@ -35,25 +35,25 @@ export const checkAnswers = async (
   formData: FormData
 ) => {
   const clerkUser = await currentUser()
-  if (!clerkUser) throw new Error("Unauthorized")
+  if (!clerkUser) throw new Error('Unauthorized')
 
   const exercises = await prisma.exercise.findMany({ where: { sectionId } })
   let allCorrect = true
 
   for (const exercise of exercises) {
     const key =
-      exercise.type === "MCQ"
-        ? "mcq"
-        : exercise.type === "TRUE_FALSE"
-        ? "true-false"
-        : "fill-blank"
+      exercise.type === 'MCQ'
+        ? 'mcq'
+        : exercise.type === 'TRUE_FALSE'
+        ? 'true-false'
+        : 'fill-blank'
 
-    const answer = formData.get(key)?.toString() || ""
+    const answer = formData.get(key)?.toString() || ''
 
-    if (exercise.type === "MCQ" || exercise.type === "FILL_BLANK") {
+    if (exercise.type === 'MCQ' || exercise.type === 'FILL_BLANK') {
       if (answer !== exercise.answer) allCorrect = false
-    } else if (exercise.type === "TRUE_FALSE") {
-      if ((answer === "true") !== (exercise.answer === "true"))
+    } else if (exercise.type === 'TRUE_FALSE') {
+      if ((answer === 'true') !== (exercise.answer === 'true'))
         allCorrect = false
     }
   }
@@ -61,21 +61,21 @@ export const checkAnswers = async (
   const user = await prisma.user.findUnique({
     where: { clerkId: clerkUser.id },
   })
-  if (!user) throw new Error("User not found")
+  if (!user) throw new Error('User not found')
 
   const completion = await prisma.sectionCompletion.findFirst({
     where: { userId: user.id, sectionId },
   })
 
   if (completion) {
-    return { success: false, message: "Section already completed" }
+    return { success: false, message: 'Section already completed' }
   }
 
   if (allCorrect) {
     const section = await prisma.section.findUnique({
       where: { id: sectionId },
     })
-    if (!section) throw new Error("Section not found")
+    if (!section) throw new Error('Section not found')
 
     await prisma.sectionCompletion.create({
       data: {
@@ -101,12 +101,12 @@ export const checkAnswers = async (
     }
   }
 
-  return { success: false, message: "Some answers are incorrect, try again" }
+  return { success: false, message: 'Some answers are incorrect, try again' }
 }
 
 export async function getProfileUser() {
   const user = await currentUser()
-  if (!user) throw new Error("Not authenticated")
+  if (!user) throw new Error('Not authenticated')
 
   const dbUser = await prisma.user.findUnique({
     where: { clerkId: user.id },
@@ -116,7 +116,7 @@ export async function getProfileUser() {
     },
   })
 
-  if (!dbUser) throw new Error("User not found")
+  if (!dbUser) throw new Error('User not found')
 
   await updateStreak(dbUser.id)
 
@@ -153,7 +153,7 @@ export async function getProfileUser() {
     },
   })
 
-  if (!profile) throw new Error("User profile not found")
+  if (!profile) throw new Error('User profile not found')
 
   return profile
 }
@@ -176,7 +176,7 @@ export async function updateUserLevel(userId: string, totalXP: number) {
   const newLevel = getLevelFromTotalXP(totalXP)
 
   const user = await prisma.user.findUnique({ where: { id: userId } })
-  if (!user) throw new Error("User not found")
+  if (!user) throw new Error('User not found')
 
   if (newLevel > user.level) {
     await prisma.user.update({
@@ -193,7 +193,7 @@ export async function updateStreak(userId: string) {
     where: { id: userId },
   })
 
-  if (!user) throw new Error("User not found")
+  if (!user) throw new Error('User not found')
 
   const now = new Date()
 
@@ -323,6 +323,8 @@ export const submitChallenge = async (
         studyPlanId: challenge.studyPlanId,
       },
     })
+
+    await updateStreak(user.id)
 
     await prisma.user.update({
       where: { id: user.id },

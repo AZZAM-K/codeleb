@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { useUser, SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs"
-import { createOrUpdateUser, getProfileUser } from "@/lib/actions" // اضيف دالة تجيب بيانات المستخدم من DB
-import Link from "next/link"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
-import { Zap } from "lucide-react"
+import { useState, useEffect } from 'react'
+import { useUser, SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs'
+import { createOrUpdateUser, getProfileUser } from '@/lib/actions' // اضيف دالة تجيب بيانات المستخدم من DB
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { Zap } from 'lucide-react'
 
 export default function Navbar() {
   const { user, isSignedIn } = useUser()
@@ -20,7 +20,7 @@ export default function Navbar() {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
         name: user.username || `user-${user.id}`,
-        image: user.imageUrl || "",
+        image: user.imageUrl || '',
       })
         .then(() => getProfileUser()) // fetch updated user from DB
         .then(res => setUserData(res))
@@ -29,10 +29,10 @@ export default function Navbar() {
   }, [isSignedIn, user])
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/courses", label: "Courses" },
-    { href: "/leaderboard", label: "Leaderboard" },
-    { href: "/about-us", label: "About Us" },
+    { href: '/', label: 'Home' },
+    { href: '/courses', label: 'Courses' },
+    { href: '/leaderboard', label: 'Leaderboard' },
+    { href: '/about-us', label: 'About Us' },
   ]
   const pathname = usePathname()
 
@@ -59,8 +59,8 @@ export default function Navbar() {
                 href={href}
                 className={`transition-colors ${
                   isActive
-                    ? "text-green-600 font-semibold border-b-2 border-green-600 pb-1"
-                    : "text-gray-600 hover:text-green-600"
+                    ? 'text-green-600 font-semibold border-b-2 border-green-600 pb-1'
+                    : 'text-gray-600 hover:text-green-600'
                 }`}
               >
                 {label}
@@ -72,17 +72,17 @@ export default function Navbar() {
         <div className='hidden md:flex gap-3 items-center'>
           <SignedIn>
             {userData && (
-              <div className='flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-lg shadow-sm'>
-                <Zap className='text-orange-500' size={18} />
+              <div className='flex items-center gap-1 px-2 py-1'>
+                <Zap color='orange' size={20} />
                 <span className='text-sm font-medium text-gray-800'>
-                  {userData.streak} Day{userData.streak === 1 ? "" : "s"} Streak
+                  {userData.streak}
                 </span>
               </div>
             )}
             <div className='flex items-center gap-3'>
               <Link href='/profile' className='flex items-center gap-2'>
                 <Image
-                  src={user?.imageUrl || "/default-avatar.png"}
+                  src={user?.imageUrl || '/default-avatar.png'}
                   alt='Profile'
                   width={35}
                   height={35}
@@ -163,8 +163,8 @@ export default function Navbar() {
                 href={href}
                 className={`block py-2 text-sm rounded transition ${
                   isActive
-                    ? "text-green-600 font-semibold  pb-1"
-                    : "text-gray-600 hover:text-green-600"
+                    ? 'text-green-600 font-semibold  pb-1'
+                    : 'text-gray-600 hover:text-green-600'
                 }`}
               >
                 {label}
@@ -176,7 +176,7 @@ export default function Navbar() {
             <SignedIn>
               <div className='flex items-center gap-3'>
                 <Image
-                  src={user?.imageUrl || "/default-avatar.png"}
+                  src={user?.imageUrl || '/default-avatar.png'}
                   alt='Profile'
                   width={35}
                   height={35}
@@ -187,7 +187,7 @@ export default function Navbar() {
                   <div className='flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-lg shadow-sm'>
                     <Zap className='text-orange-500' size={18} />
                     <span className='text-sm font-medium text-gray-800'>
-                      {userData.streak} Day{userData.streak === 1 ? "" : "s"}{" "}
+                      {userData.streak} Day{userData.streak === 1 ? '' : 's'}{' '}
                       Streak
                     </span>
                   </div>

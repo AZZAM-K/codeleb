@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import {
   BarChart2,
   Award,
@@ -9,15 +9,15 @@ import {
   CheckCircle,
   Trophy,
   Activity,
-} from "lucide-react"
+} from 'lucide-react'
 
-import { getProfileUser, updateUserLevel } from "@/lib/actions"
+import { getProfileUser, updateUserLevel } from '@/lib/actions'
 
-import { SafeUser } from "@/types"
+import { SafeUser } from '@/types'
 
 export default function ProfilePage() {
   const [user, setUser] = useState<SafeUser | null>(null)
-  
+
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -35,13 +35,13 @@ export default function ProfilePage() {
   }, [])
 
   const formatDate = (date: Date | null | undefined) => {
-    if (!date) return "N/A"
-    return new Date(date).toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    if (!date) return 'N/A'
+    return new Date(date).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     })
   }
 
@@ -100,27 +100,27 @@ export default function ProfilePage() {
 
   const rank = (() => {
     const lvl = user.level
-    if (lvl >= 90) return "LEGEND"
-    if (lvl >= 70) return "MASTER"
-    if (lvl >= 50) return "EXPERT"
-    if (lvl >= 30) return "SENIOR"
-    if (lvl >= 15) return "MID"
-    if (lvl >= 3) return "JUNIOR"
-    return "BEGINNER"
+    if (lvl >= 90) return 'LEGEND'
+    if (lvl >= 70) return 'MASTER'
+    if (lvl >= 50) return 'EXPERT'
+    if (lvl >= 30) return 'SENIOR'
+    if (lvl >= 15) return 'MID'
+    if (lvl >= 3) return 'JUNIOR'
+    return 'BEGINNER'
   })()
 
   const rankBorder = {
-    BEGINNER: "",
-    JUNIOR: "ring-2 ring-blue-500",
-    MID: "ring-2 ring-green-500",
-    SENIOR: "ring-2 ring-purple-500",
-    EXPERT: "ring-4 ring-yellow-400 shadow-yellow-400 animate-pulse",
-    MASTER: "ring-4 ring-red-400 shadow-red-400 animate-pulse",
-    LEGEND: "ring-4 ring-indigo-500 shadow-indigo-500 animate-pulse",
+    BEGINNER: '',
+    JUNIOR: 'ring-2 ring-blue-500',
+    MID: 'ring-2 ring-green-500',
+    SENIOR: 'ring-2 ring-purple-500',
+    EXPERT: 'ring-4 ring-yellow-400 shadow-yellow-400 animate-pulse',
+    MASTER: 'ring-4 ring-red-400 shadow-red-400 animate-pulse',
+    LEGEND: 'ring-4 ring-indigo-500 shadow-indigo-500 animate-pulse',
   }[rank]
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 text-gray-800 p-6 sm:p-10 font-sans'>
+    <div className='min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 text-gray-800 p-6 sm:p-10'>
       <header className='flex flex-col items-center justify-center text-center mb-10'>
         <div
           className={`w-32 h-32 rounded-full bg-white/60 backdrop-blur-lg flex items-center justify-center text-4xl text-gray-500 mb-4 border-4 border-white shadow-xl ${rankBorder}`}
@@ -197,7 +197,7 @@ export default function ProfilePage() {
             </div>
             <h2 className='text-xl font-bold text-gray-800'>Current Streak</h2>
           </div>
-          <div className="flex flex-col justify-start items-start">
+          <div className='flex flex-col justify-start items-start'>
             <p className='text-6xl font-black text-orange-500'>
               {user.streak} days
             </p>
@@ -211,7 +211,7 @@ export default function ProfilePage() {
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
         <section
           className='bg-white/80 backdrop-blur-lg rounded-2xl p-6 sm:p-8 shadow-xl border border-blue-100'
-          style={{ maxHeight: "400px", overflowY: "auto" }}
+          style={{ maxHeight: '400px', overflowY: 'auto' }}
         >
           <h2 className='text-3xl font-bold text-gray-900 flex items-center gap-3 mb-6'>
             <Activity size={28} className='text-blue-500' /> Section Completions
@@ -233,11 +233,11 @@ export default function ProfilePage() {
                   </span>
                   <div className='flex items-center gap-2 mt-1 text-sm text-gray-600'>
                     <span className='text-xs font-medium text-gray-500'>
-                      Order: {sc.section.order}
+                      Course: {sc.studyPlan.title} -
                     </span>
                     <span className='flex items-center gap-1 text-gray-500'>
-                      <CheckCircle size={14} /> Completed:{" "}
-                      {sc.completedAt ? formatDate(sc.completedAt) : "Not yet"}
+                      <CheckCircle size={14} /> Completed:{' '}
+                      {sc.completedAt ? formatDate(sc.completedAt) : 'Not yet'}
                     </span>
                   </div>
                 </div>
@@ -247,7 +247,7 @@ export default function ProfilePage() {
         </section>
         <section
           className='bg-white/80 backdrop-blur-lg rounded-2xl p-6 sm:p-8 shadow-xl border border-green-100'
-          style={{ maxHeight: "400px", overflowY: "auto" }}
+          style={{ maxHeight: '400px', overflowY: 'auto' }}
         >
           <h2 className='text-3xl font-bold text-gray-900 flex items-center gap-3 mb-6'>
             <Trophy size={28} className='text-green-500' /> Challenge
@@ -270,13 +270,13 @@ export default function ProfilePage() {
                     </span>
                     <div className='flex items-center gap-2 mt-1 text-sm text-gray-600'>
                       <span className='text-xs font-medium text-gray-500'>
-                        Difficulty: {cc.challenge.difficulty}
+                        Course: {cc.studyPlan.title} -
                       </span>
                       <span className='flex items-center gap-1 text-gray-500'>
-                        <CheckCircle size={14} /> Completed:{" "}
+                        <CheckCircle size={14} /> Completed:{' '}
                         {cc.completedAt
                           ? formatDate(cc.completedAt)
-                          : "Not yet"}
+                          : 'Not yet'}
                       </span>
                     </div>
                   </div>
