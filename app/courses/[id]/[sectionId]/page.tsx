@@ -77,7 +77,7 @@ const SectionPage = async ({
                   <FileCode size={16} className='mr-2' />
                   <span>Example</span>
                 </div>
-                <pre className='bg-gray-100 text-gray-800 rounded-lg p-4 font-mono text-sm overflow-x-auto'>
+                <pre className='bg-gray-100 text-gray-800 rounded-lg p-4 text-sm overflow-x-auto'>
                   <code>{subsection.example}</code>
                 </pre>
               </div>

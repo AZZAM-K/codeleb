@@ -1,4 +1,5 @@
 import { ExerciseType } from "@prisma/client"
+import { Difficulty, ExerciseType } from '@prisma/client'
 
 export type courseCard = {
   id: string
@@ -68,4 +69,44 @@ export interface SafeUser {
 export type SafeUserWithProgress = SafeUser & {
   nextLevelXP: number
   progress: number
+
+export type ChallengeResponse = {
+  id: string
+  title: string
+  xp: number
+  studyPlanId: string
+  description: string
+  language: string
+  difficulty: Difficulty
+  starterCode: string
+  functionName: string
+  examples: {
+    challengeId: string
+    id: string
+    input: string
+    output: string
+  }[]
+  isCompleted: boolean
+}
+
+export interface PistonExecuteRequest {
+  language: string
+  version: string
+  files: {
+    name: string
+    content: string
+  }[]
+  stdin: string
+}
+
+export interface PistonExecuteResponse {
+  language: string
+  version: string
+  run: {
+    stdout: string
+    stderr: string
+    code: number
+    signal: string | null
+    output: string
+  }
 }
