@@ -1,42 +1,44 @@
-'use client'
+"use client"
 
-import { useState, useEffect } from 'react'
-import { useUser, SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs'
-import { createOrUpdateUser } from '@/lib/actions'
-import Link from 'next/link'
-import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { useState, useEffect } from "react"
+import { useUser, SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs"
+import { createOrUpdateUser, getProfileUser } from "@/lib/actions" // اضيف دالة تجيب بيانات المستخدم من DB
+import Link from "next/link"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { Zap } from "lucide-react"
 
 export default function Navbar() {
   const { user, isSignedIn } = useUser()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [userData, setUserData] = useState<{ streak: number } | null>(null)
 
-  // Sync user with DB
+  // Sync user with DB and fetch streak
   useEffect(() => {
     if (isSignedIn && user) {
       createOrUpdateUser({
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
         name: user.username || `user-${user.id}`,
-        image: user.imageUrl || '',
+        image: user.imageUrl || "",
       })
-        .then(res => console.log('User saved:', res))
+        .then(() => getProfileUser()) // fetch updated user from DB
+        .then(res => setUserData(res))
         .catch(err => console.error(err))
     }
   }, [isSignedIn, user])
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/courses', label: 'Courses' },
-    { href: '/leaderboard', label: 'Leaderboard' },
-    { href: '/about-us', label: 'About Us' },
+    { href: "/", label: "Home" },
+    { href: "/courses", label: "Courses" },
+    { href: "/leaderboard", label: "Leaderboard" },
+    { href: "/about-us", label: "About Us" },
   ]
   const pathname = usePathname()
 
   return (
     <header className='bg-white backdrop-blur-md sticky top-0 z-50 border-b border-gray-200'>
       <div className='container mx-auto px-6 py-4 flex items-center justify-between'>
-        {/* Logo */}
         <Link href='/' className='flex items-center space-x-2'>
           <Image
             src='/logo.png'
@@ -57,8 +59,8 @@ export default function Navbar() {
                 href={href}
                 className={`transition-colors ${
                   isActive
-                    ? 'text-green-600 font-semibold border-b-2 border-green-600 pb-1'
-                    : 'text-gray-600 hover:text-green-600'
+                    ? "text-green-600 font-semibold border-b-2 border-green-600 pb-1"
+                    : "text-gray-600 hover:text-green-600"
                 }`}
               >
                 {label}
@@ -69,10 +71,18 @@ export default function Navbar() {
 
         <div className='hidden md:flex gap-3 items-center'>
           <SignedIn>
+            {userData && (
+              <div className='flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-lg shadow-sm'>
+                <Zap className='text-orange-500' size={18} />
+                <span className='text-sm font-medium text-gray-800'>
+                  {userData.streak} Day{userData.streak === 1 ? "" : "s"} Streak
+                </span>
+              </div>
+            )}
             <div className='flex items-center gap-3'>
-              <Link href='/profile'>
+              <Link href='/profile' className='flex items-center gap-2'>
                 <Image
-                  src={user?.imageUrl || '/default-avatar.png'}
+                  src={user?.imageUrl || "/default-avatar.png"}
                   alt='Profile'
                   width={35}
                   height={35}
@@ -112,7 +122,6 @@ export default function Navbar() {
           aria-label='Toggle menu'
         >
           {isMenuOpen ? (
-            // Close Icon
             <svg
               className='h-6 w-6'
               fill='none'
@@ -127,7 +136,6 @@ export default function Navbar() {
               />
             </svg>
           ) : (
-            // Hamburger Icon
             <svg
               className='h-6 w-6'
               fill='none'
@@ -155,8 +163,8 @@ export default function Navbar() {
                 href={href}
                 className={`block py-2 text-sm rounded transition ${
                   isActive
-                    ? 'text-green-600 font-semibold  pb-1'
-                    : 'text-gray-600 hover:text-green-600'
+                    ? "text-green-600 font-semibold  pb-1"
+                    : "text-gray-600 hover:text-green-600"
                 }`}
               >
                 {label}
@@ -168,13 +176,22 @@ export default function Navbar() {
             <SignedIn>
               <div className='flex items-center gap-3'>
                 <Image
-                  src={user?.imageUrl || '/default-avatar.png'}
+                  src={user?.imageUrl || "/default-avatar.png"}
                   alt='Profile'
                   width={35}
                   height={35}
                   className='rounded-full'
                 />
                 <span className='font-semibold'>{user?.username}</span>
+                {userData && (
+                  <div className='flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-lg shadow-sm'>
+                    <Zap className='text-orange-500' size={18} />
+                    <span className='text-sm font-medium text-gray-800'>
+                      {userData.streak} Day{userData.streak === 1 ? "" : "s"}{" "}
+                      Streak
+                    </span>
+                  </div>
+                )}
               </div>
               <SignOutButton>
                 <button className='w-full px-3 py-1 mt-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition'>

@@ -19,8 +19,21 @@ model User {
   clerkId              String                @unique
   challengeCompletions ChallengeCompletion[]
   sectionCompletions   SectionCompletion[]
-}
 
+  streak        Int       @default(0)
+  lastStudiedAt DateTime?
+
+  rank Rank @default(BEGINNER)
+}
+enum Rank {
+  BEGINNER
+  JUNIOR
+  MID
+  SENIOR
+  EXPERT
+  MASTER
+  LEGEND
+}
 model StudyPlan {
   id                   String                @id @default(cuid())
   title                String
@@ -36,6 +49,7 @@ model Section {
   id          String              @id @default(cuid())
   title       String
   order       Int
+  xp          Int                 @default(50)
   studyPlanId String
   exercises   Exercise[]
   studyPlan   StudyPlan           @relation(fields: [studyPlanId], references: [id])
@@ -57,22 +71,33 @@ model SectionCompletion {
 }
 
 model Challenge {
-  id          String                @id @default(cuid())
-  title       String
-  prompt      String
-  starterCode String?
-  order       Int
-  studyPlanId String
-  studyPlan   StudyPlan             @relation(fields: [studyPlanId], references: [id])
-  completions ChallengeCompletion[]
-  testCases   TestCase[]
+  id           String                @id @default(cuid())
+  title        String
+  description  String
+  language     String
+  difficulty   Difficulty
+  xp           Int
+  starterCode  String
+  functionName String
+  studyPlanId  String
+  studyPlan    StudyPlan             @relation(fields: [studyPlanId], references: [id])
+  completions  ChallengeCompletion[]
+  testCases    TestCase[]
+  examples     ChallengeExample[]
+}
+
+model ChallengeExample {
+  id          String    @id @default(cuid())
+  input       String
+  output      String
+  challengeId String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
 }
 
 model TestCase {
   id          String    @id @default(cuid())
-  input       String
-  expected    String
-  isHidden    Boolean   @default(false)
+  input       Json
+  output      Json
   challengeId String
   challenge   Challenge @relation(fields: [challengeId], references: [id])
 }
@@ -114,3 +139,10 @@ enum ExerciseType {
   MCQ
   FILL_BLANK
 }
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
