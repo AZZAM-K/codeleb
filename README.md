@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 CodeLeb
 
-## Getting Started
+**CodeLeb** is a gamified platform that makes learning programming _fun, structured, and rewarding_.  
+It combines **interactive courses**, **coding challenges**, and **XP-based progression** — helping learners grow from **Beginner** to **Legend**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📚 Learn Programming Languages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Learn popular programming languages like **JavaScript**, **Python**, **Java**, **C++**, and more.
+- Each language has its own **course** divided into structured **sections**.
+- Lessons are designed to be interactive, practical, and beginner-friendly.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🧩 Coding Challenges
 
-## Learn More
+- Practice solving **real coding problems** inspired by platforms like LeetCode.
+- Each challenge includes:
+  - A detailed problem statement
+  - Input and output examples
+  - Built-in test cases
+- Difficulty levels:
+  - 🟢 **Easy**
+  - 🟡 **Medium**
+  - 🔴 **Hard**
 
-To learn more about Next.js, take a look at the following resources:
+### 🕹️ Gamified Learning Experience
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Earn **XP** and **level up** as you learn and solve problems.
+- Maintain your **daily streak** to earn bonus XP.
+- Track your progress and compete with others on the **leaderboard**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🏆 Rank System
 
-## Deploy on Vercel
+Ranks are dynamically assigned based on user level:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Rank            | Description                                     |
+| --------------- | ----------------------------------------------- |
+| 🐣 **Beginner** | Just getting started                            |
+| 👶 **Junior**   | Learning the fundamentals                       |
+| 💻 **Mid**      | Writing solid code with confidence              |
+| 🧠 **Senior**   | Strong problem-solving and algorithmic thinking |
+| ⚔️ **Expert**   | Advanced mastery of data structures and logic   |
+| 🔥 **Master**   | Among the best — a true coding master           |
+| 🏆 **Legend**   | The ultimate coding champion                    |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧱 Architecture Overview
+
+| Layer              | Technology                                                |
+| ------------------ | --------------------------------------------------------- |
+| **Frontend**       | Next.js 15 (App Router) + React + Tailwind CSS            |
+| **Backend**        | Next.js **API Routes** & **Server Actions**               |
+| **Database**       | **PostgreSQL** (hosted on [Neon.tech](https://neon.tech)) |
+| **ORM**            | **Prisma**                                                |
+| **Authentication** | **Clerk**                                                 |
+| **Code Execution** | **Piston API** (multi-language runtime)                   |
