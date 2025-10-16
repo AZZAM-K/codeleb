@@ -18,8 +18,22 @@ export async function GET(
       where: { id },
       include: {
         sections: {
+          orderBy: {
+            order: 'asc',
+          },
           include: {
             subsections: true,
+            completions: { where: { user: { clerkId: userId } } },
+          },
+        },
+        challenges: {
+          orderBy: {
+            difficulty: 'asc',
+          },
+          select: {
+            id: true,
+            title: true,
+            difficulty: true,
             completions: { where: { user: { clerkId: userId } } },
           },
         },
@@ -33,8 +47,17 @@ export async function GET(
       completed: section.completions.length > 0,
     }))
 
+    const challengesWithCompletion = course.challenges.map(challenge => ({
+      ...challenge,
+      completed: challenge.completions.length > 0,
+    }))
+
     return new NextResponse(
-      JSON.stringify({ ...course, sections: sectionsWithCompletion }),
+      JSON.stringify({
+        ...course,
+        sections: sectionsWithCompletion,
+        challenges: challengesWithCompletion,
+      }),
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },

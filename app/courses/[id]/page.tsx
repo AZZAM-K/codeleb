@@ -1,4 +1,4 @@
-import { CheckCircle, Lock, BookOpen } from 'lucide-react'
+import { CheckCircle, Lock, BookOpen, Swords } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { currentUser } from '@clerk/nextjs/server'
@@ -20,12 +20,20 @@ interface Section {
   completed: boolean
 }
 
+interface Challenge {
+  id: string
+  title: string
+  difficulty: 'EASY' | 'MEDIUM' | 'HARD'
+  completed: boolean
+}
+
 interface Course {
   id: string
   title: string
   description: string
   img: string
   sections: Section[]
+  challenges: Challenge[]
 }
 
 interface PageProps {
@@ -54,24 +62,24 @@ const Page = async ({ params }: PageProps) => {
 
   const course = await getCourse(id)
 
-  const totalLessons = course.sections.reduce(
-    (sum, section) => sum + section.subsections.length,
-    0
-  )
-  const completedLessons = course.sections.reduce(
-    (sum, section) =>
-      sum + (section.completed ? section.subsections.length : 0),
-    0
-  )
+  const total = course.sections.length + course.challenges.length
+  const completedLessons = course.sections.filter(
+    section => section.completed
+  ).length
+  const completedChallenges = course.challenges.filter(
+    challenge => challenge.completed
+  ).length
   const courseProgress =
-    totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0
+    total > 0
+      ? Math.round(((completedLessons + completedChallenges) / total) * 100)
+      : 0
 
   return (
-    <div className='bg-gray-100 text-gray-900 font-sans py-4 px-4'>
+    <div className='bg-gray-100 text-gray-900 py-4 px-4'>
       <div className='flex md:flex-row flex-col gap-8'>
-        <aside className='w-full md:w-1/3 p-6 bg-white rounded-xl shadow-lg flex flex-col items-center'>
+        <aside className='w-full md:w-1/3 p-5 bg-white rounded-xl shadow-lg flex flex-col items-center'>
           <div className='flex flex-col md:flex-row gap-4 items-center'>
-            <div className='md:w-1/3 h-20 md:h-32 rounded-full overflow-hidden'>
+            <div className='md:w-1/3 h-20 md:h-32 overflow-hidden'>
               <Image
                 src={course.img}
                 alt={course.title}
@@ -99,6 +107,52 @@ const Page = async ({ params }: PageProps) => {
                 {courseProgress}%
               </span>
             </div>
+          </div>
+          <div className='w-full mt-4'>
+            <h2 className='text-xs uppercase tracking-wider text-gray-500 mb-4'>
+              Challenges
+            </h2>
+            <ul className='space-y-2'>
+              {course.challenges.map(challenge => (
+                <li key={challenge.id}>
+                  <Link
+                    href={`/courses/${id}/challenges/${challenge.id}`}
+                    className={`flex justify-between items-center w-full rounded-lg py-3 px-4 transition-colors duration-300 ${
+                      challenge.completed
+                        ? 'bg-green-400 text-white hover:bg-green-500'
+                        : 'bg-blue-100 hover:bg-blue-200'
+                    }`}
+                  >
+                    <span className='text-sm font-semibold text-gray-900'>
+                      {challenge.title}
+                    </span>
+                    <div className='flex items-center space-x-2'>
+                      <span
+                        className={`text-xs font-bold px-2 py-1 rounded ${
+                          challenge.difficulty === 'EASY'
+                            ? 'bg-green-200 text-green-800'
+                            : challenge.difficulty === 'MEDIUM'
+                            ? 'bg-yellow-200 text-yellow-800'
+                            : 'bg-red-200 text-red-800'
+                        }`}
+                      >
+                        {challenge.difficulty}
+                      </span>
+                      {challenge.completed ? (
+                        <CheckCircle
+                          size={16}
+                          className={
+                            challenge.completed ? 'text-white' : 'text-blue-600'
+                          }
+                        />
+                      ) : (
+                        <Swords size={16} className='text-blue-600' />
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </aside>
 

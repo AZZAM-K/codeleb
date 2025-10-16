@@ -20,7 +20,7 @@ export default function Navbar() {
         name: user.username || `user-${user.id}`,
         image: user.imageUrl || '',
       })
-        .then(res => console.log('User saved:', res))
+        .then()
         .catch(err => console.error(err))
     }
   }, [isSignedIn, user])
