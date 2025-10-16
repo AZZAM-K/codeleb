@@ -1,10 +1,10 @@
-import Courses from "@/components/Courses"
-import HowItWorksSection from "@/components/HowItWorksSection"
-import Loader from "@/components/Loader"
-import { testimonials } from "@/constants"
-import { ChevronsUp } from "lucide-react"
-import Link from "next/link"
-import { Suspense } from "react"
+import Courses from '@/components/Courses'
+import HowItWorksSection from '@/components/HowItWorksSection'
+import Loader from '@/components/Loader'
+import { testimonials } from '@/constants'
+import { ChevronsUp } from 'lucide-react'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
 export default function Home() {
   return (
@@ -29,9 +29,14 @@ export default function Home() {
       </section>
 
       <section className='py-16 md:py-24'>
-        <Suspense fallback={<Loader />}>
-          <Courses limit={4} />
-        </Suspense>
+        <div className='container mx-auto px-6 text-center'>
+          <h2 className='text-3xl md:text-4xl font-bold text-gray-900'>
+            Featured Study Plans
+          </h2>
+          <Suspense fallback={<Loader />}>
+            <Courses limit={4} />
+          </Suspense>
+        </div>
       </section>
 
       <HowItWorksSection />

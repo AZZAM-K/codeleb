@@ -1,16 +1,11 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { JetBrains_Mono } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const jetBrainsMono = JetBrains_Mono({
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
 })
 
@@ -27,9 +22,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <body className={`${jetBrainsMono.className} antialiased`}>
           <Navbar />
           {children}
         </body>
