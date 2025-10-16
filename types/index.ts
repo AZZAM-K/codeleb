@@ -1,5 +1,4 @@
-import { ExerciseType } from "@prisma/client"
-import { Difficulty, ExerciseType } from '@prisma/client'
+import { Difficulty, ExerciseType } from "@prisma/client"
 
 export type courseCard = {
   id: string
@@ -39,7 +38,6 @@ export type Exercise = {
   question: string
   options?: string[]
 }
-// types/user.ts
 export interface SafeUser {
   id: string
   name: string
@@ -53,7 +51,7 @@ export interface SafeUser {
   sectionCompletions: {
     id: string
     completedAt: Date | null
-    xpAdded?: boolean // ← اجعلها optional
+    xpAdded?: boolean
     section: { id: string; title: string; order: number }
     studyPlan: { id: string; title: string }
   }[]
@@ -61,7 +59,7 @@ export interface SafeUser {
   challengeCompletions: {
     id: string
     completedAt: Date | null
-    xpAdded?: boolean // ← اجعلها optional
+    xpAdded?: boolean
     challenge: { id: string; title: string; difficulty: string; xp: number }
     studyPlan: { id: string; title: string }
   }[]
@@ -69,7 +67,7 @@ export interface SafeUser {
 export type SafeUserWithProgress = SafeUser & {
   nextLevelXP: number
   progress: number
-
+}
 export type ChallengeResponse = {
   id: string
   title: string

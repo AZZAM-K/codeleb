@@ -24,12 +24,7 @@ model User {
   lastStudiedAt DateTime?
 
   rank Rank @default(BEGINNER)
-}
 
-  streak        Int       @default(0)
-  lastStudiedAt DateTime?
-
-  rank Rank @default(BEGINNER)
 }
 enum Rank {
   BEGINNER
@@ -152,12 +147,4 @@ enum Difficulty {
   HARD
 }
 
-enum Rank {
-  BEGINNER
-  JUNIOR
-  MID
-  SENIOR
-  EXPERT
-  MASTER
-  LEGEND
-}
+
