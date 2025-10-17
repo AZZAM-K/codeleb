@@ -1,31 +1,19 @@
-import { courseCard } from "@/types"
-import Image from "next/image"
-import { coursesColors } from "@/constants"
-import Link from "next/link"
+import { courseCard } from '@/types'
+import Image from 'next/image'
+import { coursesColors } from '@/constants'
+import Link from 'next/link'
 
 const Courses = async ({ limit }: { limit?: number }) => {
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/courses${
-      limit ? `?limit=${limit}` : ""
+      limit ? `?limit=${limit}` : ''
     }`
   )
   const courses = (await data.json()) as courseCard[]
 
   return (
-    <section className='container mx-auto px-6 py-10 sm:py-10'> 
-      
-      <div className='mb-12 md:mb-16 text-left'>
-        <h2 className='text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight'>
-          <span className="text-green-600">Master Your Goals</span>
-          <br />
-          with Featured Study Plans
-        </h2>
-        <p className='mt-3 text-lg text-gray-600 max-w-2xl'>
-          Explore our curated learning pathways designed by experts to help you achieve mastery quickly and efficiently.
-        </p>
-      </div>
-
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12'>
+    <section className='container mx-auto px-6 py-10 sm:py-10'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
         {courses.map(course => (
           <div
             key={course.id}
