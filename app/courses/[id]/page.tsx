@@ -112,7 +112,7 @@ const Page = async ({ params }: PageProps) => {
             <h2 className='text-xs uppercase tracking-wider text-gray-500 mb-4'>
               Challenges
             </h2>
-            <ul className='space-y-2'>
+            <ul className='space-y-2 h-60 overflow-y-auto '>
               {course.challenges.map(challenge => (
                 <li key={challenge.id}>
                   <Link

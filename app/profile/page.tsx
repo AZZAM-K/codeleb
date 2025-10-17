@@ -96,7 +96,12 @@ export default function ProfilePage() {
   }
 
   if (!user)
-    return <p className='text-center text-xl mt-20 text-gray-500'>Loading...</p>
+    return <div className='flex flex-col items-center justify-center py-50 text-gray-600 space-y-4'>
+        <div className='animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-green-500'></div>
+        <p className='text-lg font-medium text-green-600'>
+          Loading leaderboard...
+        </p>
+      </div>
 
   const rank = (() => {
     const lvl = user.level
@@ -177,7 +182,7 @@ export default function ProfilePage() {
             </div>
             <h2 className='text-xl font-bold text-gray-800'>Total XP</h2>
           </div>
-          <p className='text-6xl font-black text-blue-500'>{user.xp}</p>
+          <p className='text-4xl font-black text-blue-500'>{user.xp}</p>
         </div>
 
         <div className='bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-2xl hover:scale-105 transition-transform duration-300 border border-green-200'>
