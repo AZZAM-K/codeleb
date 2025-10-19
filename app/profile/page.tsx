@@ -96,12 +96,12 @@ export default function ProfilePage() {
   }
 
   if (!user)
-    return <div className='flex flex-col items-center justify-center py-50 text-gray-600 space-y-4'>
+    return (
+      <div className='flex flex-col items-center justify-center py-50 text-gray-600 space-y-4'>
         <div className='animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-green-500'></div>
-        <p className='text-lg font-medium text-green-600'>
-          Loading leaderboard...
-        </p>
+        <p className='text-lg font-medium text-green-600'>Loading...</p>
       </div>
+    )
 
   const rank = (() => {
     const lvl = user.level
