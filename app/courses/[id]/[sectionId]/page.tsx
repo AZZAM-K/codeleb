@@ -21,11 +21,14 @@ const SectionPage = async ({
   }
   const cookie = await cookies()
   const { sectionId, id: courseId } = await params
-  const data = await fetch(`/api/sections/${sectionId}`, {
-    headers: {
-      cookie: cookie.toString(),
-    },
-  })
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/sections/${sectionId}`,
+    {
+      headers: {
+        cookie: cookie.toString(),
+      },
+    }
+  )
   const section = (await data.json()) as SectionResponse
 
   if (!section) {

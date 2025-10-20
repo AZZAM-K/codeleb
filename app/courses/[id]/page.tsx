@@ -49,10 +49,13 @@ const Page = async ({ params }: PageProps) => {
   }
   const cookie = await cookies()
   async function getCourse(courseId: string): Promise<Course> {
-    const res = await fetch(`/api/courses/${courseId}`, {
-      cache: 'no-store',
-      headers: { cookie: cookie.toString() },
-    })
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/courses/${courseId}`,
+      {
+        cache: 'no-store',
+        headers: { cookie: cookie.toString() },
+      }
+    )
     if (!res.ok) throw new Error('Failed to fetch course')
     return res.json()
   }

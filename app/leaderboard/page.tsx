@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import React, { useEffect, useState } from "react"
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 
 type User = {
   id: string
@@ -19,12 +19,12 @@ export default function Leaderboard() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/users")
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`)
         const data: User[] = await res.json()
 
         setUsers(data)
       } catch (err) {
-        console.error("Error fetching users:", err)
+        console.error('Error fetching users:', err)
       } finally {
         setLoading(false)
       }
@@ -72,8 +72,8 @@ export default function Leaderboard() {
                   onClick={() => setSelectedUser(user)}
                   className={`cursor-pointer group border-b last:border-none transition-all duration-300 hover:bg-green-50/60 ${
                     index < 3
-                      ? "bg-gradient-to-r from-green-100 to-green-50"
-                      : ""
+                      ? 'bg-gradient-to-r from-green-100 to-green-50'
+                      : ''
                   }`}
                 >
                   <td className='py-4 px-6 font-bold text-green-700 flex items-center gap-2'>
@@ -139,13 +139,13 @@ export default function Leaderboard() {
                   {selectedUser.name}
                 </h3>
                 <p className='text-lg text-gray-800'>
-                  Level:{" "}
+                  Level:{' '}
                   <span className='font-semibold text-green-600'>
                     {selectedUser.level}
                   </span>
                 </p>
                 <p className='text-lg text-gray-800'>
-                  XP:{" "}
+                  XP:{' '}
                   <span className='font-semibold text-green-600'>
                     {selectedUser.xp}
                   </span>
