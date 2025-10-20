@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useUser, SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs'
-import { createOrUpdateUser, getProfileUser } from '@/lib/actions' // اضيف دالة تجيب بيانات المستخدم من DB
+import { createOrUpdateUser, getProfileUser } from '@/lib/actions'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <header className='bg-white backdrop-blur-md sticky top-0 z-50 border-b border-gray-200'>
       <div className='container mx-auto px-6 py-4 flex items-center justify-between'>
-        <Link href='/' className='flex items-center space-x-2'>
+        <Link href='/' className='flex items-center space-x-2 mr-3'>
           <Image
             src='/logo.png'
             alt='CodeLeb Logo'
@@ -184,11 +184,10 @@ export default function Navbar() {
                 />
                 <span className='font-semibold'>{user?.username}</span>
                 {userData && (
-                  <div className='flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-lg shadow-sm'>
-                    <Zap className='text-orange-500' size={18} />
+                  <div className='flex items-center gap-1 px-2 py-1'>
+                    <Zap color='orange' size={20} />
                     <span className='text-sm font-medium text-gray-800'>
-                      {userData.streak} Day{userData.streak === 1 ? '' : 's'}{' '}
-                      Streak
+                      {userData.streak}
                     </span>
                   </div>
                 )}

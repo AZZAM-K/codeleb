@@ -200,25 +200,25 @@ export async function updateStreak(userId: string) {
   const today = new Date(now)
   today.setHours(0, 0, 0, 0)
 
-  const lastStudiedAt = user.lastStudiedAt ? new Date(user.lastStudiedAt) : null
+  const lastDay = user.lastStudiedAt ? new Date(user.lastStudiedAt) : null
   let newStreak = user.streak ?? 0
 
-  if (!lastStudiedAt) {
+  if (!lastDay) {
     newStreak = 1
   } else {
-    const lastDay = new Date(lastStudiedAt)
-    lastDay.setHours(0, 0, 0, 0)
+    const yesterday = new Date()
+    yesterday.setDate(today.getDate() - 1)
+    yesterday.setHours(0, 0, 0, 0)
 
-    const diffDays = Math.floor(
-      (today.getTime() - lastDay.getTime()) / (1000 * 60 * 60 * 24)
-    )
+    const lastStudiedDay = new Date(lastDay)
+    lastStudiedDay.setHours(0, 0, 0, 0)
 
-    if (diffDays === 0) {
+    if (lastStudiedDay.getTime() === today.getTime()) {
       newStreak = user.streak
-    } else if (diffDays === 1) {
+    } else if (lastStudiedDay.getTime() === yesterday.getTime()) {
       newStreak = user.streak + 1
     } else {
-      newStreak = 0
+      newStreak = 1
     }
   }
 
