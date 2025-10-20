@@ -4,8 +4,9 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params
   try {
     const { userId } = await auth()
 
@@ -14,7 +15,7 @@ export async function GET(
     }
 
     const challenge = await prisma.challenge.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         examples: true,
       },
@@ -29,7 +30,7 @@ export async function GET(
 
     const completion = await prisma.challengeCompletion.findFirst({
       where: {
-        challengeId: params.id,
+        challengeId: id,
         user: {
           clerkId: userId,
         },
