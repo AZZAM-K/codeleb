@@ -27,6 +27,7 @@ const ChallengePage = async ({
       headers: {
         cookie: cookie.toString(),
       },
+      cache: 'no-store',
     }
   )
 

@@ -7,7 +7,8 @@ const Courses = async ({ limit }: { limit?: number }) => {
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/courses${
       limit ? `?limit=${limit}` : ''
-    }`
+    }`,
+    { cache: 'no-store' }
   )
   const courses = (await data.json()) as courseCard[]
 
