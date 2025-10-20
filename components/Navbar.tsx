@@ -175,14 +175,16 @@ export default function Navbar() {
           <div className='pt-2 border-t border-gray-200 flex flex-col gap-2'>
             <SignedIn>
               <div className='flex items-center gap-3'>
-                <Image
-                  src={user?.imageUrl || '/default-avatar.png'}
-                  alt='Profile'
-                  width={35}
-                  height={35}
-                  className='rounded-full'
-                />
-                <span className='font-semibold'>{user?.username}</span>
+                <Link href='/profile' className='flex items-center gap-2'>
+                  <Image
+                    src={user?.imageUrl || '/default-avatar.png'}
+                    alt='Profile'
+                    width={35}
+                    height={35}
+                    className='rounded-full'
+                  />
+                  <span className='font-semibold'>{user?.username}</span>
+                </Link>
                 {userData && (
                   <div className='flex items-center gap-1 px-2 py-1'>
                     <Zap color='orange' size={20} />
