@@ -4,8 +4,9 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params
   try {
     const { userId } = await auth()
 
@@ -14,7 +15,7 @@ export async function GET(
     }
 
     const section = await prisma.section.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         subsections: true,
         exercises: true,
@@ -27,7 +28,7 @@ export async function GET(
 
     const completion = await prisma.sectionCompletion.findFirst({
       where: {
-        sectionId: params.id,
+        sectionId: id,
         user: {
           clerkId: userId,
         },
