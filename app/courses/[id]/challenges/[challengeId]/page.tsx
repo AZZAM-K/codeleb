@@ -21,14 +21,11 @@ const ChallengePage = async ({
   const cookie = await cookies()
   const { challengeId } = await params
 
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/challenges/${challengeId}`,
-    {
-      headers: {
-        cookie: cookie.toString(),
-      },
-    }
-  )
+  const data = await fetch(`/api/challenges/${challengeId}`, {
+    headers: {
+      cookie: cookie.toString(),
+    },
+  })
 
   const challenge = (await data.json()) as ChallengeResponse
 
