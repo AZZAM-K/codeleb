@@ -85,7 +85,7 @@ export default function AboutPage() {
               We&apos;re a small, dedicated team that loves to code and teach.
             </p>
           </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-12'>
+          <div className='grid grid-cols-1 sm:grid-cols-3 gap-12'>
             {teamMembers.map(member => (
               <TeamMemberCard
                 key={member.name}
