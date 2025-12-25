@@ -51,7 +51,7 @@ Ranks are dynamically assigned based on user level:
 
 | Layer              | Technology                                                |
 | ------------------ | --------------------------------------------------------- |
-| **Frontend**       | Next.js 15 (App Router) + React + Tailwind CSS            |
+| **Frontend**       | Next.js 16 (App Router) + React + Tailwind CSS            |
 | **Backend**        | Next.js **API Routes** & **Server Actions**               |
 | **Database**       | **PostgreSQL** (hosted on [Neon.tech](https://neon.tech)) |
 | **ORM**            | **Prisma**                                                |
