@@ -9,11 +9,6 @@ export const teamMembers = [
     colorClasses: 'bg-yellow-200 text-yellow-800',
     short: 'OE',
   },
-  {
-    name: 'Moustafa Naji',
-    colorClasses: 'bg-purple-200 text-purple-800',
-    short: 'MN',
-  },
 ]
 
 export const coursesColors = {
